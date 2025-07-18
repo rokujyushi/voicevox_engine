@@ -115,7 +115,7 @@ def _notes_to_keys_and_phonemes(
                 note.lyric  # type: ignore
             ) or mora_kana_to_mora_phonemes.get(
                 _hira_to_kana(note.lyric)  # type: ignore
-            )
+            ) or (None, note.lyric) if note.lyric.removesuffix('[').removeprefix(']') in Phoneme._PHONEME_LIST else None  # type: ignore
             if mora_phonemes is None:
                 msg = f"lyricが不正です: {note.lyric}"
                 raise SongInvalidInputError(msg)
